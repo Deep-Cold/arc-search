@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int N=15,BOUND=9;
+const int N=15,BOUND=7;
 typedef long long ll;
 typedef pair<int,int> PII;
 struct Vertex
