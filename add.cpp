@@ -123,7 +123,7 @@ struct Graph
             for(int j=1;j<=t.siz;j++)
             {
                 if(!mat[j]) continue;
-                if(edges[mat[i]][mat[j]]&&!t.edges[i][j]) return false;
+                if(edges[i][j]&&!t.edges[mat[i]][mat[j]]) return false;
             }
         }
         return true;
@@ -132,11 +132,11 @@ struct Graph
     {
         if(cur==siz+1) return CheckMatch(mat,t);
         for(int i=1;i<=t.siz;i++)
-            if(!mat[i]&&(t.esiz[i]>=esiz[cur]))
+            if(!mat[cur]&&(t.esiz[i]>=esiz[cur]))
             {
-                mat[i]=cur;
+                mat[cur]=i;
                 if(SearchVMatch(cur+1,mat,t)) return true;
-                mat[i]=0;
+                mat[cur]=0;
             }
         return false;
     }

@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int N=15,BOUND=7;
+const int N=15,BOUND=8;
 typedef long long ll;
 typedef pair<int,int> PII;
 struct Vertex
@@ -115,7 +115,7 @@ struct Graph
             for(int j=1;j<=t.siz;j++)
             {
                 if(!mat[j]) continue;
-                if(edges[mat[i]][mat[j]]&&!t.edges[i][j]) return false;
+                if(edges[i][j]!=t.edges[mat[i]][mat[j]]) return false;
             }
         }
         return true;
@@ -124,11 +124,11 @@ struct Graph
     {
         if(cur==siz+1) return CheckMatch(mat,t);
         for(int i=1;i<=t.siz;i++)
-            if(!mat[i]&&(t.esiz[i]>=esiz[cur]))
+            if(!mat[cur]&&(t.esiz[i]>=esiz[cur]))
             {
-                mat[i]=cur;
+                mat[cur]=i;
                 if(SearchVMatch(cur+1,mat,t)) return true;
-                mat[i]=0;
+                mat[cur]=0;
             }
         return false;
     }
@@ -138,8 +138,7 @@ struct Graph
         UpdateESiz(),t.UpdateESiz();
         mat.clear();
         mat.resize(max(siz,t.siz)+1);
-        if(siz>t.siz||(siz==t.siz&&etot>t.etot)) return t.SearchVMatch(1,mat,*this);
-        return SearchVMatch(1,mat,t);
+        return t.SearchVMatch(1,mat,*this);
     }
 }orig,sct;
 vector<Graph> gs;
@@ -216,8 +215,8 @@ void SearchVertex(int cur=n)
         SearchGraph();
         return;
     }
-    // curv[cur].type=1;
-    // SearchVertex(cur+1);
+    curv[cur].type=1;
+    SearchVertex(cur+1);
     curv[cur].type=2;
     SearchVertex(cur+1);
 }

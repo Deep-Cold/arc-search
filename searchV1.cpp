@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int N=15,BOUND=7;
+const int N=15,BOUND=8;
 typedef long long ll;
 typedef pair<int,int> PII;
 struct Vertex
@@ -214,8 +214,8 @@ void SearchVertex(int cur=n)
         SearchGraph();
         return;
     }
-    // curv[cur].type=1;
-    // SearchVertex(cur+1);
+    curv[cur].type=1;
+    SearchVertex(cur+1);
     curv[cur].type=2;
     SearchVertex(cur+1);
 }

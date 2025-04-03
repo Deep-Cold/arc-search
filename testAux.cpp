@@ -147,13 +147,15 @@ void SearchVertex(int cur=n)
     curv[cur].type=2;
     SearchGraph();
 }
+int n,m;
 int main()
 {
-    Graph G=Graph(4);
-    for(int i=1;i<=4;i++)
+    scanf("%d%d",&n,&m);
+    Graph G=Graph(n);
+    for(int i=1;i<=n;i++)
         curv.push_back(Vertex(i));
     curv[0].type=1;
-    for(int i=1;i<=3;i++)
+    for(int i=1;i<n;i++)
         curv[i].type=2;
     G.edges[1][2]=G.edges[2][1]=1;
     G.edges[1][3]=G.edges[3][1]=1;
