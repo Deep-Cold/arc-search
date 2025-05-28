@@ -14,6 +14,7 @@ struct Vertex
     Vertex(int vid)
     {
         id=vid;
+        type=0;
     }
 }oriv[N];
 vector<Vertex> curv;
@@ -47,7 +48,7 @@ struct Graph
             putchar('\n');
         }
     }
-    inline Graph Getaux() const // need update: only consider orin
+    inline Graph Getaux() const
     {
         int curn=siz;
         Graph aux=Graph(curn);
@@ -115,7 +116,7 @@ struct Graph
             for(int j=1;j<=t.siz;j++)
             {
                 if(!mat[j]) continue;
-                if(edges[i][j]!=t.edges[mat[i]][mat[j]]) return false;
+                if(edges[mat[i]][mat[j]]&&!t.edges[i][j]) return false;
             }
         }
         return true;
@@ -124,11 +125,11 @@ struct Graph
     {
         if(cur==siz+1) return CheckMatch(mat,t);
         for(int i=1;i<=t.siz;i++)
-            if(!mat[cur]&&(t.esiz[i]>=esiz[cur]))
+            if(!mat[i]&&(t.esiz[i]>=esiz[cur]))
             {
-                mat[cur]=i;
+                mat[i]=cur;
                 if(SearchVMatch(cur+1,mat,t)) return true;
-                mat[cur]=0;
+                mat[i]=0;
             }
         return false;
     }
@@ -208,17 +209,23 @@ inline void Output()
         a, b two vertexes that are connected
         a, b edges are strict in orig
 */ 
-void SearchVertex(int cur=n)
+void SearchVertex(int cur=1)
 {
     if(cur>=curn)
     {
         SearchGraph();
         return;
     }
+    if(curv[cur].type!=0)
+    {
+        SearchVertex(cur+1);
+        return;
+    }
     curv[cur].type=1;
     SearchVertex(cur+1);
     curv[cur].type=2;
     SearchVertex(cur+1);
+    curv[cur].type=0;
 }
 int main()
 {
@@ -243,7 +250,7 @@ int main()
     while(curn<=BOUND)
     {
         tmp=Graph(curn);
-        if(curn==n) SearchGraph();
+        if(curn==n) SearchVertex();
         else
         {
             //puts("!!!");

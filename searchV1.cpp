@@ -207,17 +207,23 @@ inline void Output()
         a, b two vertexes that are connected
         a, b edges are strict in orig
 */ 
-void SearchVertex(int cur=n)
+void SearchVertex(int cur=1)
 {
     if(cur>=curn)
     {
         SearchGraph();
         return;
     }
+    if(curv[cur].type!=0)
+    {
+        SearchVertex(cur+1);
+        return;
+    }
     curv[cur].type=1;
     SearchVertex(cur+1);
     curv[cur].type=2;
     SearchVertex(cur+1);
+    curv[cur].type=0;
 }
 int main()
 {
@@ -242,7 +248,7 @@ int main()
     while(curn<=BOUND)
     {
         tmp=Graph(curn);
-        if(curn==n) SearchGraph();
+        if(curn==n) SearchVertex();
         else
         {
             //puts("!!!");
